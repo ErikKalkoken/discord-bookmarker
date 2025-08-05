@@ -2,6 +2,7 @@ package main
 
 import (
 	"cmp"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -16,8 +17,8 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
 
-	"example/discord-remindme/internal/bot"
-	"example/discord-remindme/internal/storage"
+	"example/discord-bookmarker/internal/bot"
+	"example/discord-bookmarker/internal/storage"
 )
 
 const (
@@ -27,7 +28,12 @@ const (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		if !errors.Is(err, os.ErrNotExist) {
+			slog.Error("Error loading .env file", "error", err)
+			os.Exit(1)
+		}
+	} else {
+		slog.Info("env file loaded")
 	}
 	var (
 		appIDFlag         = flag.String("app-id", os.Getenv("APP_ID"), "Discord app ID. Can be set by env.")
@@ -38,6 +44,16 @@ func main() {
 		resetCommandsFlag = flag.Bool("reset-commands", false, "recreates Discord commands. Requires user re-install.")
 	)
 	flag.Parse()
+
+	// Validations
+	if *appIDFlag == "" {
+		slog.Error("app ID missing")
+		os.Exit(1)
+	}
+	if *botTokenFlag == "" {
+		slog.Error("bot token missing")
+		os.Exit(1)
+	}
 
 	// set manual log level for this session if requested
 	m := map[string]slog.Level{

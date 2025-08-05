@@ -10,8 +10,8 @@ import (
 	"github.com/icrowley/fake"
 	"github.com/stretchr/testify/assert"
 
-	"example/discord-remindme/internal/queries"
-	"example/discord-remindme/internal/storage"
+	"example/discord-bookmarker/internal/queries"
+	"example/discord-bookmarker/internal/storage"
 )
 
 func TestBookmark(t *testing.T) {

@@ -2,11 +2,16 @@
 
 A Discord bot for bookmarking messages with reminders.
 
-## Installation Guide
+[![Go](https://github.com/ErikKalkoken/discord-bookmarker/actions/workflows/go.yml/badge.svg)](https://github.com/ErikKalkoken/discord-bookmarker/actions/workflows/go.yml)
 
-### Discord App
+> [!NOTE]
+> The project is currently in active development and not yet ready for production use.
 
-Create a Discord app with the following settings
+## Installation Guide (WIP)
+
+### Create Discord App
+
+Create a Discord app with the following settings:
 
 - General Information
   - Name: bookmarker
@@ -20,6 +25,14 @@ Create a Discord app with the following settings
   - Create token
   - Public Bot: yes
   - Message Content Intend: yes (Needed to show the content of a bookmarked message)
+
+### Create User
+
+...
+
+### Setup supervisor
+
+...
 
 ## Credits
 

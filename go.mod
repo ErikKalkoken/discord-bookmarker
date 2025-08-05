@@ -1,4 +1,4 @@
-module example/discord-remindme
+module example/discord-bookmarker
 
 go 1.24
 

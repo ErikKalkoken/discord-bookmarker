@@ -16,8 +16,8 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/docker/go-units"
 
-	"example/discord-remindme/internal/queries"
-	"example/discord-remindme/internal/storage"
+	"example/discord-bookmarker/internal/queries"
+	"example/discord-bookmarker/internal/storage"
 )
 
 const (

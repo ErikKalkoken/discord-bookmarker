@@ -7,7 +7,7 @@ import (
 	"log/slog"
 	"time"
 
-	"example/discord-remindme/internal/queries"
+	"example/discord-bookmarker/internal/queries"
 )
 
 func (st *Storage) CountBookmarksForUser(userID string) (int, error) {

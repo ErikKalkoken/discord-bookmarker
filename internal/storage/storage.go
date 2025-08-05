@@ -9,7 +9,7 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 
-	"example/discord-remindme/internal/queries"
+	"example/discord-bookmarker/internal/queries"
 )
 
 type Storage struct {
