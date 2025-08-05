@@ -3,5 +3,6 @@
 playground/
 *.sqlite*
 .env
+!*/.env
 bookmarkersrv
 !bookmarkersrv/
