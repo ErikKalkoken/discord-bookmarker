@@ -272,26 +272,31 @@ func (b *Bot) sendDM(userID string, content string, embeds []*discordgo.MessageE
 	return nil
 }
 
-func (b *Bot) ResetCommands() error {
-	// Delete existing commands (if any)
+func (b *Bot) InitCommands(isReset bool) error {
 	cc, err := b.ds.ApplicationCommands(b.appID, "")
 	if err != nil {
 		return err
 	}
-	for _, cmd := range cc {
-		err := b.ds.ApplicationCommandDelete(b.appID, "", cmd.ID)
-		if err != nil {
-			return fmt.Errorf("delete application command %s: %w", cmd.Name, err)
+	hasCommands := len(cc) > 0
+	if hasCommands && isReset {
+		// Delete existing commands
+		for _, cmd := range cc {
+			err := b.ds.ApplicationCommandDelete(b.appID, "", cmd.ID)
+			if err != nil {
+				return fmt.Errorf("delete application command %s: %w", cmd.Name, err)
+			}
+			slog.Info("Deleted application command", "cmd", cmd.Name)
 		}
-		slog.Info("Deleted application command", "cmd", cmd.Name)
 	}
-	// Add commands
-	for _, cmd := range commands {
-		_, err := b.ds.ApplicationCommandCreate(b.appID, "", &cmd)
-		if err != nil {
-			return fmt.Errorf("create application command %s: %w", cmd.Name, err)
+	if !hasCommands || isReset {
+		// Add commands
+		for _, cmd := range commands {
+			_, err := b.ds.ApplicationCommandCreate(b.appID, "", &cmd)
+			if err != nil {
+				return fmt.Errorf("create application command %s: %w", cmd.Name, err)
+			}
+			slog.Info("Created application command", "cmd", cmd.Name)
 		}
-		slog.Info("Added application command", "cmd", cmd.Name)
 	}
 	return nil
 }

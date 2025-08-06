@@ -18,15 +18,14 @@ Create a Discord app with the following settings:
 - General Information
   - Name: bookmarker
   - Description: A Discord bot for bookmarking messages with reminders.
+  - App Icon: You can find the official icon on the repo in the resources directory.
 
 - Installation
-  - Installation Context: User Install only
-  - Default Install Settings: `application.commands`
+  - Installation Context: Disable "Guild Install" and keep "User Install" enabled
 
 - Bot
-  - Create token
-  - Public Bot: yes
-  - Message Content Intend: yes (Needed to show the content of a bookmarked message)
+  - Message Content Intend: Click to enable (Needed to show the content of a bookmarked message)
+  - Token: Click on "Reset" to create a new token and write it down somewhere (or keep the page open)
 
 ### Service installation
 

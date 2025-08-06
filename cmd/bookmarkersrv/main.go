@@ -107,7 +107,9 @@ func main() {
 		slog.Error("Failed to create Discord session", "error", err)
 		os.Exit(1)
 	}
-	ds.Identify.Intents = discordgo.IntentDirectMessages
+	ds.Identify.Intents = discordgo.IntentMessageContent
+	// ds.Identify.Presence = discordgo.GatewayStatusUpdate{Status: "online"}
+	ds.UserAgent = "Bookmarker (https://github.com/ErikKalkoken/discord-bookmarker, 0.1.0)"
 	b := bot.New(st, ds, *appIDFlag)
 	if err := ds.Open(); err != nil {
 		slog.Error("Cannot open the Discord session", "error", err)
@@ -115,12 +117,9 @@ func main() {
 	}
 	defer ds.Close()
 
-	if *resetCommandsFlag {
-		err := b.ResetCommands()
-		if err != nil {
-			slog.Error("Failed to reset Discord commands", "error", err)
-			os.Exit(1)
-		}
+	if err := b.InitCommands(*resetCommandsFlag); err != nil {
+		slog.Error("Failed to init Discord commands", "error", err)
+		os.Exit(1)
 	}
 
 	b.Start()
